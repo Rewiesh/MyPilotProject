@@ -3,6 +3,7 @@
 // ============================================================
 // Hoe uitvoeren: open in browser-console of run met Node.js
 
+window.demo01 = function() {
 
 // --- 1. const vs let ---
 const geboortejaar = 1995;   // vaste waarde, kan NIET worden gewijzigd
@@ -55,3 +56,4 @@ function toonScope() {
 
 toonScope();
 // console.log(lokaal); // ❌ ReferenceError
+};

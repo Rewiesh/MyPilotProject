@@ -5,6 +5,7 @@
 // Asynchrone patronen zorgen dat lang-durende taken
 // de rest van de code NIET blokkeren.
 
+window.demo07 = function() {
 
 // --- 1. Synchrone vs Asynchrone code ---
 console.log("--- Volgorde demo ---");
@@ -115,3 +116,4 @@ console.log("D");
 
 // Uitvoer: A → D → C → B
 // Microtasks (Promise) lopen altijd vóór macrotasks (setTimeout)
+};

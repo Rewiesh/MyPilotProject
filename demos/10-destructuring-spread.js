@@ -2,6 +2,7 @@
 // DEMO 10 — Destructuring, Spread & Rest
 // ============================================================
 
+window.demo10 = function() {
 
 // --- 1. Array destructuring ---
 console.log("--- Array destructuring ---");
@@ -121,3 +122,4 @@ console.log(som(...waarden)); // 60
 
 const max = Math.max(...[3, 1, 7, 4]);
 console.log("max:", max); // 7
+};

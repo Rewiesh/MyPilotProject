@@ -2,6 +2,7 @@
 // DEMO 08 — Gelijkheid & Type Coercitie
 // ============================================================
 
+window.demo08 = function() {
 
 // --- 1. Strikte gelijkheid === (aanbevolen) ---
 console.log("--- Strikte gelijkheid (===) ---");
@@ -67,3 +68,4 @@ controleerGelijkheid(42, 42);
 controleerGelijkheid(42, "42");
 controleerGelijkheid(0, false);
 controleerGelijkheid(null, undefined);
+};

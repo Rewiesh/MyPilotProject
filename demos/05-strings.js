@@ -2,6 +2,7 @@
 // DEMO 05 — Strings & Tekstmanipulatie
 // ============================================================
 
+window.demo05 = function() {
 
 // --- 1. String aanmaken ---
 console.log("--- String aanmaken ---");
@@ -112,3 +113,4 @@ console.log(s);  // "hallo"
 
 s = s.toUpperCase(); // ✅ sla de nieuwe waarde op
 console.log(s);  // "HALLO"
+};

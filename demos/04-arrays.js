@@ -2,6 +2,7 @@
 // DEMO 04 — Arrays & Transformaties
 // ============================================================
 
+window.demo04 = function() {
 
 // --- 1. Array aanmaken & lezen ---
 console.log("--- Array aanmaken ---");
@@ -123,3 +124,4 @@ const dureNamen = producten
     .map((p) => p.naam);
 
 console.log("Producten boven €100:", dureNamen);
+};

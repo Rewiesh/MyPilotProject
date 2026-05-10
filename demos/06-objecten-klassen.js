@@ -2,6 +2,7 @@
 // DEMO 06 — Objecten & Klassen
 // ============================================================
 
+window.demo06 = function() {
 
 // --- 1. Object literal ---
 console.log("--- Object literal ---");
@@ -113,3 +114,4 @@ console.log("\n--- instanceof ---");
 console.log(mijnHond instanceof Huisdier); // true
 console.log(mijnHond instanceof Dier);     // true (door overerving)
 console.log(kat instanceof Huisdier);      // false
+};

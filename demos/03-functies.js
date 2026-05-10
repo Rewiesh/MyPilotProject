@@ -2,6 +2,7 @@
 // DEMO 03 — Functies
 // ============================================================
 
+window.demo03 = function() {
 
 // --- 1. Function Declaration (hoisted) ---
 console.log("--- Function Declaration ---");
@@ -113,3 +114,4 @@ const team = {
 };
 
 team.toonLedenArrow();
+};

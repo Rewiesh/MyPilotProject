@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Demo's — Programming Fundamentals</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ── Sidebar ── */
+        aside {
+            width: 250px;
+            min-width: 250px;
+            background: #1e293b;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #334155;
+            overflow-y: auto;
+        }
+        .sidebar-titel {
+            padding: 18px 16px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #64748b;
+            border-bottom: 1px solid #334155;
+        }
+        nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 13px;
+            border-left: 3px solid transparent;
+            transition: all 0.12s;
+        }
+        nav a:hover { color: #e2e8f0; background: #273449; }
+        nav a.actief { color: #60a5fa; background: #1a2d4a; border-left-color: #3b82f6; }
+        .nav-nr {
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+            min-width: 20px;
+        }
+        .nav-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: #334155;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+        .nav-dot.gelopen { background: #22c55e; }
+
+        /* ── Main ── */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 28px;
+        }
+        .pagina-header { margin-bottom: 20px; }
+        .pagina-header h1 { font-size: 20px; font-weight: 700; color: #f1f5f9; }
+        .pagina-header p  { font-size: 13px; color: #64748b; margin-top: 4px; }
+
+        /* ── Demo sectie ── */
+        .demo-sectie {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: border-color 0.15s;
+        }
+        .demo-sectie.actief-sectie { border-color: #3b82f6; }
+
+        .sectie-header {
+            display: flex;
+            align-items: center;
+            padding: 13px 16px;
+            gap: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .sectie-header:hover { background: #253347; }
+
+        .sectie-badge {
+            font-size: 11px;
+            font-weight: 700;
+            color: #93c5fd;
+            background: #1e3a5f;
+            padding: 2px 8px;
+            border-radius: 4px;
+            min-width: 28px;
+            text-align: center;
+        }
+        .sectie-info { flex: 1; min-width: 0; }
+        .sectie-titel { font-size: 14px; font-weight: 600; color: #e2e8f0; }
+        .sectie-sub   { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+        .sectie-acties {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn {
+            padding: 5px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.12s;
+            white-space: nowrap;
+        }
+        .btn-run  { background: #2563eb; color: #fff; }
+        .btn-run:hover  { background: #1d4ed8; }
+        .btn-run:active { transform: scale(0.97); }
+        .btn-wis  { background: #334155; color: #94a3b8; }
+        .btn-wis:hover  { background: #3f4f63; }
+        .btn-pijl { background: transparent; color: #64748b; font-size: 16px; padding: 4px 6px; line-height: 1; }
+        .btn-pijl:hover { color: #94a3b8; }
+
+        .status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #334155;
+            flex-shrink: 0;
+        }
+        .status-dot.gelopen  { background: #22c55e; }
+        .status-dot.bezig    { background: #f59e0b; animation: puls 1s infinite; }
+
+        @keyframes puls {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.3; }
+        }
+
+        /* ── Uitvoer venster ── */
+        .sectie-inhoud { border-top: 1px solid #334155; }
+        .sectie-inhoud.ingeklapt { display: none; }
+
+        .uitvoer-venster {
+            background: #0a0f1a;
+            padding: 14px 16px;
+            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+            font-size: 12.5px;
+            line-height: 1.65;
+            min-height: 56px;
+            max-height: 380px;
+            overflow-y: auto;
+        }
+
+        .log-rij { white-space: pre-wrap; word-break: break-all; }
+        .log-rij.normaal { color: #a3e635; }
+        .log-rij.fout    { color: #f87171; }
+        .log-rij.warn    { color: #fbbf24; }
+        .log-rij.systeem { color: #475569; font-style: italic; }
+        .log-rij.klaar   { color: #22d3ee; font-style: italic; }
+
+        /* ── Alles aan/uit knop ── */
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            align-items: center;
+        }
+        .toolbar .btn { font-size: 12px; }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════ SIDEBAR ══════════════════════ -->
+<aside>
+    <div class="sidebar-titel">📋 Demo's (01–10)</div>
+    <nav id="sidebar-nav"></nav>
+</aside>
+
+<!-- ══════════════════════ MAIN ══════════════════════ -->
+<main>
+    <div class="pagina-header">
+        <h1>JavaScript Demo's</h1>
+        <p>Programming Fundamentals — klik <strong>▶ Run</strong> om een demo te starten, klik de header om in/uit te klappen.</p>
+    </div>
+
+    <div class="toolbar">
+        <button class="btn btn-run" onclick="allesUitvoeren()">▶ Alles uitvoeren</button>
+        <button class="btn btn-wis" onclick="allesWissen()">✕ Alles wissen</button>
+        <button class="btn btn-wis" onclick="toggleAlles(false)">− Alles inklappen</button>
+        <button class="btn btn-wis" onclick="toggleAlles(true)">+ Alles uitklappen</button>
+    </div>
+
+    <div id="demo-container"></div>
+</main>
+
+<!-- ══════════════════════ SCRIPTS (referenties) ══════════════════════ -->
+<script src="01-variabelen-scope.js"></script>
+<script src="02-datatypes.js"></script>
+<script src="03-functies.js"></script>
+<script src="04-arrays.js"></script>
+<script src="05-strings.js"></script>
+<script src="06-objecten-klassen.js"></script>
+<script src="07-async-javascript.js"></script>
+<script src="08-gelijkheid-coercitie.js"></script>
+<script src="09-truthy-falsy.js"></script>
+<script src="10-destructuring-spread.js"></script>
+
+<script>
+// ══════════════════════════════════════════════════════
+//  Demo metadata
+// ══════════════════════════════════════════════════════
+const demos = [
+    { id: '01', titel: 'Variabelen & Scope',      sub: 'const, let, var, block scope, hoisting',              fn: 'demo01' },
+    { id: '02', titel: 'Data Types',              sub: 'Primitieve types, typeof, type conversie',             fn: 'demo02' },
+    { id: '03', titel: 'Functies',                sub: 'Declaration, expression, arrow, higher-order, this',   fn: 'demo03' },
+    { id: '04', titel: 'Arrays & Transformaties', sub: 'map(), filter(), reduce(), some(), every(), find()',   fn: 'demo04' },
+    { id: '05', titel: 'Strings',                 sub: 'Template literals, trim, split, slice, replace',       fn: 'demo05' },
+    { id: '06', titel: 'Objecten & Klassen',      sub: 'Object literal, klassen, extends, instanceof',        fn: 'demo06' },
+    { id: '07', titel: 'Async JavaScript',        sub: 'Callbacks, Promises, async/await, event loop volgorde', fn: 'demo07' },
+    { id: '08', titel: 'Gelijkheid & Coercitie',  sub: '=== vs ==, type coercitie bij expressies',            fn: 'demo08' },
+    { id: '09', titel: 'Truthy & Falsy',           sub: 'Falsy waarden, ||, &&, ?? (nullish coalescing)',      fn: 'demo09' },
+    { id: '10', titel: 'Destructuring & Spread',  sub: 'Array/object destructuring, rest, spread operator',   fn: 'demo10' },
+];
+
+// ══════════════════════════════════════════════════════
+//  Console interceptor
+// ══════════════════════════════════════════════════════
+let huidigeDemoId = null;
+
+const _origLog   = console.log.bind(console);
+const _origError = console.error.bind(console);
+const _origWarn  = console.warn.bind(console);
+
+function formateerArgs(args) {
+    return args.map(a => {
+        if (a === null)      return 'null';
+        if (a === undefined) return 'undefined';
+        if (typeof a === 'object') {
+            try { return JSON.stringify(a); } catch { return String(a); }
+        }
+        return String(a);
+    }).join(' ');
+}
+
+function voegLogToe(demoId, tekst, type) {
+    const venster = document.getElementById('uitvoer-' + demoId);
+    if (!venster) return;
+    const rij = document.createElement('div');
+    rij.className = 'log-rij ' + type;
+    rij.textContent = tekst;
+    venster.appendChild(rij);
+    venster.scrollTop = venster.scrollHeight;
+}
+
+console.log = function(...args) {
+    _origLog(...args);
+    if (huidigeDemoId) voegLogToe(huidigeDemoId, formateerArgs(args), 'normaal');
+};
+console.error = function(...args) {
+    _origError(...args);
+    if (huidigeDemoId) voegLogToe(huidigeDemoId, '❌ ' + formateerArgs(args), 'fout');
+};
+console.warn = function(...args) {
+    _origWarn(...args);
+    if (huidigeDemoId) voegLogToe(huidigeDemoId, '⚠️ ' + formateerArgs(args), 'warn');
+};
+
+// ══════════════════════════════════════════════════════
+//  UI functies
+// ══════════════════════════════════════════════════════
+function voerDemoUit(id) {
+    const fn = window[demos.find(d => d.id === id).fn];
+    if (!fn) {
+        voegLogToe(id, '❌ Demo functie niet gevonden.', 'fout');
+        return;
+    }
+
+    huidigeDemoId = id;
+
+    // Sectie open zetten als hij ingeklapt is
+    const inhoud = document.getElementById('inhoud-' + id);
+    if (inhoud) inhoud.classList.remove('ingeklapt');
+
+    // Status: bezig
+    const dot    = document.getElementById('dot-'    + id);
+    const navDot = document.getElementById('navdot-' + id);
+    const sectie = document.getElementById('sectie-' + id);
+    if (dot)    dot.className    = 'status-dot bezig';
+    if (sectie) sectie.classList.add('actief-sectie');
+
+    voegLogToe(id, '▶ Demo ' + id + ' gestart...', 'systeem');
+
+    try {
+        fn();
+        voegLogToe(id, '✓ Synchrone code klaar  (async callbacks kunnen nog volgen)', 'klaar');
+    } catch (e) {
+        voegLogToe(id, '❌ Fout: ' + e.message, 'fout');
+        _origError('Demo ' + id + ' fout:', e);
+    }
+
+    // Na 2.5 sec: status groen (async klaar)
+    setTimeout(() => {
+        if (dot)    dot.className    = 'status-dot gelopen';
+        if (navDot) navDot.className = 'nav-dot gelopen';
+        if (sectie) sectie.classList.remove('actief-sectie');
+        markeerNavActief(id);
+    }, 2500);
+}
+
+function wisUitvoer(id) {
+    const venster = document.getElementById('uitvoer-' + id);
+    if (venster) venster.innerHTML = '<div class="log-rij systeem">Klik ▶ Run om de demo te starten...</div>';
+    const dot = document.getElementById('dot-' + id);
+    if (dot) dot.className = 'status-dot';
+    const navDot = document.getElementById('navdot-' + id);
+    if (navDot) navDot.className = 'nav-dot';
+}
+
+function toggleSectie(id) {
+    const inhoud = document.getElementById('inhoud-' + id);
+    const pijl   = document.getElementById('pijl-'   + id);
+    if (!inhoud) return;
+    const ingeklapt = inhoud.classList.toggle('ingeklapt');
+    if (pijl) pijl.textContent = ingeklapt ? '›' : '⌄';
+}
+
+function toggleAlles(uitklappen) {
+    demos.forEach(d => {
+        const inhoud = document.getElementById('inhoud-' + d.id);
+        const pijl   = document.getElementById('pijl-'   + d.id);
+        if (!inhoud) return;
+        if (uitklappen) {
+            inhoud.classList.remove('ingeklapt');
+            if (pijl) pijl.textContent = '⌄';
+        } else {
+            inhoud.classList.add('ingeklapt');
+            if (pijl) pijl.textContent = '›';
+        }
+    });
+}
+
+function allesUitvoeren() {
+    demos.forEach((d, i) => {
+        setTimeout(() => voerDemoUit(d.id), i * 120);
+    });
+}
+
+function allesWissen() {
+    demos.forEach(d => wisUitvoer(d.id));
+}
+
+function markeerNavActief(id) {
+    document.querySelectorAll('#sidebar-nav a').forEach(a => a.classList.remove('actief'));
+    const link = document.getElementById('navlink-' + id);
+    if (link) link.classList.add('actief');
+}
+
+// ══════════════════════════════════════════════════════
+//  DOM opbouwen
+// ══════════════════════════════════════════════════════
+const nav       = document.getElementById('sidebar-nav');
+const container = document.getElementById('demo-container');
+
+demos.forEach(demo => {
+    // Sidebar link
+    const a = document.createElement('a');
+    a.id   = 'navlink-' + demo.id;
+    a.href = '#sectie-' + demo.id;
+    a.innerHTML = `
+        <span class="nav-nr">${demo.id}</span>
+        <span>${demo.titel}</span>
+        <span class="nav-dot" id="navdot-${demo.id}"></span>
+    `;
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        document.getElementById('sectie-' + demo.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        markeerNavActief(demo.id);
+        // open de sectie als hij ingeklapt is
+        const inhoud = document.getElementById('inhoud-' + demo.id);
+        if (inhoud?.classList.contains('ingeklapt')) toggleSectie(demo.id);
+    });
+    nav.appendChild(a);
+
+    // Demo sectie
+    const sectie = document.createElement('section');
+    sectie.className = 'demo-sectie';
+    sectie.id = 'sectie-' + demo.id;
+    sectie.innerHTML = `
+        <div class="sectie-header" onclick="toggleSectie('${demo.id}')">
+            <span class="sectie-badge">${demo.id}</span>
+            <div class="sectie-info">
+                <div class="sectie-titel">${demo.titel}</div>
+                <div class="sectie-sub">${demo.sub}</div>
+            </div>
+            <span class="status-dot" id="dot-${demo.id}"></span>
+            <div class="sectie-acties" onclick="event.stopPropagation()">
+                <button class="btn btn-run"  onclick="voerDemoUit('${demo.id}')">▶ Run</button>
+                <button class="btn btn-wis"  onclick="wisUitvoer('${demo.id}')">✕</button>
+            </div>
+            <button class="btn btn-pijl" id="pijl-${demo.id}" onclick="event.stopPropagation(); toggleSectie('${demo.id}')">⌄</button>
+        </div>
+        <div class="sectie-inhoud ingeklapt" id="inhoud-${demo.id}">
+            <div class="uitvoer-venster" id="uitvoer-${demo.id}">
+                <div class="log-rij systeem">Klik ▶ Run om de demo te starten...</div>
+            </div>
+        </div>
+    `;
+    container.appendChild(sectie);
+});
+</script>
+</body>
+</html>

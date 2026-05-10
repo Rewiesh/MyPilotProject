@@ -3,6 +3,7 @@
 // ============================================================
 // In condities zet JavaScript elke waarde om naar true of false.
 
+window.demo09 = function() {
 
 // --- 1. De 8 falsy waarden ---
 console.log("--- Falsy waarden ---");
@@ -95,3 +96,4 @@ console.log(invoer ?? "Standaard"); // "Standaard"
 
 const invoer2 = "";
 console.log(invoer2 ?? "Standaard"); // ""  (lege string is niet null/undefined)
+};

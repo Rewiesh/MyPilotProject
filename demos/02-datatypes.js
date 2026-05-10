@@ -2,6 +2,8 @@
 // DEMO 02 — Data Types
 // ============================================================
 
+window.demo02 = function() {
+
 // --- 1. Primitieve types ---
 console.log("--- Primitieve types ---");
 
@@ -71,3 +73,4 @@ console.log(Boolean(0));            // false
 console.log(Boolean(""));          // false
 console.log(Boolean("hallo"));     // true
 console.log(Boolean(1));            // true
+};
