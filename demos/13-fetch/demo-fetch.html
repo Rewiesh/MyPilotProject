@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo 13 — Fetch API & CRUD</title>
+    <style>
+        body { font-family: sans-serif; padding: 24px; max-width: 700px; margin: 0 auto; }
+        h1 { color: #0891b2; }
+        section { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin: 12px 0; }
+        button { margin: 4px; padding: 8px 14px; cursor: pointer; border-radius: 6px; border: 1px solid #888; background: #0891b2; color: white; }
+        button:hover { background: #0e7490; }
+        pre {
+            background: #0f172a; color: #94e2d5; padding: 12px; border-radius: 6px;
+            overflow-x: auto; font-size: 13px; min-height: 50px; white-space: pre-wrap;
+        }
+        input, textarea {
+            width: 100%; padding: 8px; margin: 4px 0; border-radius: 6px;
+            border: 1px solid #888; font-size: 14px; box-sizing: border-box;
+        }
+        .status { font-size: 12px; color: #64748b; }
+    </style>
+</head>
+<body>
+
+    <h1>Fetch API & CRUD Demo</h1>
+    <p class="status">Gebruikt: <a href="https://jsonplaceholder.typicode.com" target="_blank">jsonplaceholder.typicode.com</a> (nep API voor testen)</p>
+
+    <section>
+        <h2>GET — Bericht ophalen</h2>
+        <label>Post ID: <input type="number" id="getPostId" value="1" min="1" max="100" style="width:80px"></label>
+        <button onclick="haalBerichtOp()">Haal op</button>
+        <pre id="getResultaat">Klik op de knop...</pre>
+    </section>
+
+    <section>
+        <h2>GET — Lijst van berichten</h2>
+        <button onclick="haalLijstOp()">Haal eerste 5 berichten op</button>
+        <pre id="lijstResultaat">Klik op de knop...</pre>
+    </section>
+
+    <section>
+        <h2>POST — Nieuw bericht aanmaken</h2>
+        <input type="text" id="nieuweTitel" placeholder="Titel">
+        <textarea id="nieuweInhoud" rows="3" placeholder="Inhoud..."></textarea>
+        <button onclick="maakBerichtAan()">Aanmaken (POST)</button>
+        <pre id="postResultaat">Vul de velden in en klik aanmaken...</pre>
+    </section>
+
+    <section>
+        <h2>PUT / PATCH — Bericht bijwerken</h2>
+        <label>Post ID om te wijzigen: <input type="number" id="updatePostId" value="1" min="1" max="100" style="width:80px"></label>
+        <input type="text" id="updatedTitel" placeholder="Nieuwe titel (PUT vervangt alles)">
+        <button onclick="vervangBericht()">Vervangen (PUT)</button>
+        <button onclick="patchBericht()">Deels bijwerken (PATCH)</button>
+        <pre id="updateResultaat">Klik op een knop...</pre>
+    </section>
+
+    <section>
+        <h2>DELETE — Bericht verwijderen</h2>
+        <label>Post ID: <input type="number" id="deletePostId" value="1" min="1" max="100" style="width:80px"></label>
+        <button onclick="verwijderBericht()">Verwijderen (DELETE)</button>
+        <pre id="deleteResultaat">Klik op de knop...</pre>
+    </section>
+
+    <script src="demo-fetch.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo 14 — Storage APIs</title>
+    <style>
+        body { font-family: sans-serif; padding: 24px; max-width: 700px; margin: 0 auto; }
+        h1 { color: #059669; }
+        section { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin: 12px 0; }
+        button { margin: 4px; padding: 8px 14px; cursor: pointer; border-radius: 6px; border: 1px solid #888; }
+        input { padding: 8px; border-radius: 6px; border: 1px solid #888; margin: 4px; }
+        pre { background: #f0fdf4; padding: 12px; border-radius: 6px; font-size: 13px; min-height: 40px; white-space: pre-wrap; }
+        .thema-donker { background: #1e293b; color: #f8fafc; }
+        .thema-donker section { border-color: #475569; }
+        .thema-donker h1 { color: #34d399; }
+    </style>
+</head>
+<body id="pagina">
+
+    <h1>Storage API Demo</h1>
+    <p>Open DevTools → Application → Local/Session Storage om de opgeslagen data te zien!</p>
+
+    <section>
+        <h2>1. localStorage — Thema opslaan</h2>
+        <p>Thema blijft bewaard ook na het sluiten van de browser.</p>
+        <button onclick="stelThemaIn('donker')">Donker thema</button>
+        <button onclick="stelThemaIn('licht')">Licht thema</button>
+        <p id="themaInfo">Huidig thema: laden...</p>
+    </section>
+
+    <section>
+        <h2>2. localStorage — Naam opslaan</h2>
+        <input type="text" id="naamInvoer" placeholder="Jouw naam">
+        <button onclick="slaaNaamOp()">Opslaan</button>
+        <button onclick="verwijderNaam()">Verwijderen</button>
+        <p id="naamInfo">Opgeslagen naam: —</p>
+    </section>
+
+    <section>
+        <h2>3. localStorage — Object opslaan (JSON)</h2>
+        <p>localStorage slaat alleen strings op. Gebruik JSON.stringify / JSON.parse.</p>
+        <button onclick="slaaProfielOp()">Profiel opslaan</button>
+        <button onclick="laadProfiel()">Profiel laden</button>
+        <button onclick="verwijderProfiel()">Profiel verwijderen</button>
+        <pre id="profielInfo">—</pre>
+    </section>
+
+    <section>
+        <h2>4. sessionStorage — Tijdelijke data</h2>
+        <p>Verdwijnt zodra het tabblad/browser wordt gesloten.</p>
+        <input type="text" id="sessieInvoer" placeholder="Tijdelijke notitie...">
+        <button onclick="slaaSessieOp()">Opslaan in sessie</button>
+        <button onclick="laadSessie()">Laden uit sessie</button>
+        <p id="sessieInfo">—</p>
+    </section>
+
+    <section>
+        <h2>5. Alles wissen</h2>
+        <button onclick="wisAlles()">localStorage leegmaken</button>
+        <button onclick="wisSessie()">sessionStorage leegmaken</button>
+    </section>
+
+    <script src="demo-storage.js"></script>
+</body>
+</html>

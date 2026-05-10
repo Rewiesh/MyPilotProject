@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo 12 — Event Handling</title>
+    <style>
+        body { font-family: sans-serif; padding: 24px; max-width: 700px; margin: 0 auto; }
+        h1 { color: #7c3aed; }
+        section { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin: 12px 0; }
+        button { margin: 4px; padding: 8px 14px; cursor: pointer; border-radius: 6px; border: 1px solid #888; }
+        #muisVak {
+            width: 100%; height: 120px; background: #f3f4f6; border-radius: 6px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; color: #555; user-select: none;
+        }
+        #muisVak.hover { background: #ddd6fe; color: #7c3aed; }
+        #logVenster {
+            background: #1e1e2e; color: #cdd6f4; padding: 12px; border-radius: 6px;
+            font-family: monospace; font-size: 13px; min-height: 80px; max-height: 200px;
+            overflow-y: auto; white-space: pre-wrap;
+        }
+        #toetsVak { width: 100%; padding: 10px; font-size: 16px; border-radius: 6px; border: 1px solid #888; }
+        #kleurBlok { width: 80px; height: 80px; background: #2563eb; border-radius: 8px; cursor: pointer; display: inline-block; }
+    </style>
+</head>
+<body>
+
+    <h1>Event Handling Demo</h1>
+
+    <section>
+        <h2>1. Klik-event</h2>
+        <button id="knopEen">Klik mij</button>
+        <button id="knopTwee">Klik mij ook</button>
+        <p>Aantal klikken: <strong id="tellerWeergave">0</strong></p>
+    </section>
+
+    <section>
+        <h2>2. Muis-events</h2>
+        <div id="muisVak">Beweeg je muis hier naartoe</div>
+    </section>
+
+    <section>
+        <h2>3. Toetsenbord-events</h2>
+        <input type="text" id="toetsVak" placeholder="Typ hier iets...">
+        <p id="toetsInfo">Ingedrukte toets: —</p>
+    </section>
+
+    <section>
+        <h2>4. Kleur wisselen op klik</h2>
+        <div id="kleurBlok"></div>
+        <p id="kleurInfo">Huidig: #2563eb</p>
+    </section>
+
+    <section>
+        <h2>5. Event Delegation</h2>
+        <button id="voegKnopToe">Voeg knop toe</button>
+        <div id="knoppenContainer" style="margin-top:8px;"></div>
+        <p id="delegatieInfo">Klik op een gegenereerde knop.</p>
+    </section>
+
+    <section>
+        <h2>6. Log venster</h2>
+        <div id="logVenster">Events verschijnen hier...\n</div>
+        <button onclick="clearLog()">Wis log</button>
+    </section>
+
+    <script src="demo-events.js"></script>
+</body>
+</html>

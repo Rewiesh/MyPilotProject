@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo 15 — Timers</title>
+    <style>
+        body { font-family: sans-serif; padding: 24px; max-width: 700px; margin: 0 auto; }
+        h1 { color: #d97706; }
+        section { border: 1px solid #ccc; border-radius: 8px; padding: 16px; margin: 12px 0; }
+        button { margin: 4px; padding: 8px 14px; cursor: pointer; border-radius: 6px; border: 1px solid #888; }
+        #klok { font-size: 48px; font-weight: bold; letter-spacing: 4px; color: #1e293b; text-align: center; padding: 16px; }
+        #stopwatch { font-size: 36px; font-weight: bold; text-align: center; color: #7c3aed; padding: 12px; }
+        #afteller { font-size: 64px; font-weight: bold; text-align: center; color: #dc2626; padding: 16px; }
+        #voortgangBalk {
+            height: 24px; background: #e2e8f0; border-radius: 12px; overflow: hidden; margin: 8px 0;
+        }
+        #voortgang { height: 100%; background: #f59e0b; width: 0%; transition: width 0.1s; border-radius: 12px; }
+        .info { color: #64748b; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <h1>Timers Demo</h1>
+
+    <section>
+        <h2>1. setTimeout — Eenmalige vertraging</h2>
+        <button onclick="startTimeout()">Start (na 2 sec)</button>
+        <button onclick="annuleerTimeout()">Annuleer</button>
+        <p id="timeoutInfo" class="info">Klik op Start...</p>
+    </section>
+
+    <section>
+        <h2>2. setInterval — Herhalende actie: Klok</h2>
+        <div id="klok">--:--:--</div>
+        <button onclick="startKlok()">Start klok</button>
+        <button onclick="stopKlok()">Stop klok</button>
+    </section>
+
+    <section>
+        <h2>3. Stopwatch</h2>
+        <div id="stopwatch">00:00.0</div>
+        <button onclick="startStopwatch()">Start</button>
+        <button onclick="stopStopwatch()">Stop</button>
+        <button onclick="resetStopwatch()">Reset</button>
+    </section>
+
+    <section>
+        <h2>4. Afteller</h2>
+        <div id="afteller">10</div>
+        <div id="voortgangBalk"><div id="voortgang"></div></div>
+        <button onclick="startAfteller(10)">Start (10 sec)</button>
+        <button onclick="stopAfteller()">Stop</button>
+        <p id="aftellInfo" class="info"></p>
+    </section>
+
+    <section>
+        <h2>5. Debounce — zoekvenster</h2>
+        <p class="info">Type iets. De zoekopdracht wordt pas verstuurd als je 500ms stopt met typen.</p>
+        <input type="text" id="zoekVak" placeholder="Zoeken..." style="width:100%;padding:8px;border-radius:6px;border:1px solid #888;font-size:16px;box-sizing:border-box;">
+        <p id="zoekInfo" class="info">Typ iets in het zoekveld...</p>
+    </section>
+
+    <script src="demo-timers.js"></script>
+</body>
+</html>
